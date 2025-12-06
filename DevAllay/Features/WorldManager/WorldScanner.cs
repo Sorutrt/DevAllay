@@ -2,10 +2,20 @@ namespace DevAllay.Features.WorldManager;
 
 public static class WorldScanner
 {
-    private static readonly string WorldsBasePath = Path.Combine(
+    private static readonly string BedrockWorldsPath = Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
         "Packages",
         "Microsoft.MinecraftUWP_8wekyb3d8bbwe",
+        "LocalState",
+        "games",
+        "com.mojang",
+        "minecraftWorlds"
+    );
+
+    private static readonly string EducationWorldsPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "Packages",
+        "Microsoft.MinecraftEducationEdition_8wekyb3d8bbwe",
         "LocalState",
         "games",
         "com.mojang",
@@ -16,14 +26,25 @@ public static class WorldScanner
     {
         var worlds = new List<WorldInfo>();
 
-        if (!Directory.Exists(WorldsBasePath))
+        // Scan Bedrock Edition worlds
+        ScanWorldsFromPath(BedrockWorldsPath, "Bedrock", worlds);
+
+        // Scan Education Edition worlds
+        ScanWorldsFromPath(EducationWorldsPath, "Education", worlds);
+
+        return worlds;
+    }
+
+    private static void ScanWorldsFromPath(string basePath, string edition, List<WorldInfo> worlds)
+    {
+        if (!Directory.Exists(basePath))
         {
-            return worlds;
+            return;
         }
 
         try
         {
-            var worldFolders = Directory.GetDirectories(WorldsBasePath);
+            var worldFolders = Directory.GetDirectories(basePath);
 
             foreach (var folder in worldFolders)
             {
@@ -42,7 +63,8 @@ public static class WorldScanner
                             WorldName = string.IsNullOrWhiteSpace(worldName) 
                                 ? Path.GetFileName(folder) 
                                 : worldName,
-                            LastModified = lastModified
+                            LastModified = lastModified,
+                            Edition = edition
                         });
                     }
                     catch
@@ -55,11 +77,10 @@ public static class WorldScanner
         }
         catch
         {
-            // Return empty list if scanning fails
+            // Skip if scanning fails
         }
-
-        return worlds;
     }
 
-    public static string GetWorldsBasePath() => WorldsBasePath;
+    public static string GetBedrockWorldsPath() => BedrockWorldsPath;
+    public static string GetEducationWorldsPath() => EducationWorldsPath;
 }

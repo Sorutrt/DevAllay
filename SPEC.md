@@ -27,8 +27,11 @@
 Minecraft BE のローカル保存データを操作する機能です。
 
 1.  **ワールド一覧表示:**
-    - `%LOCALAPPDATA%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds` 以下のフォルダをスキャンする。
+    - 以下のパスをスキャンする：
+      - Bedrock Edition: `%LOCALAPPDATA%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds`
+      - Education Edition: `%LOCALAPPDATA%\Packages\Microsoft.MinecraftEducationEdition_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds`
     - 各フォルダ内の `levelname.txt` を読み込み、ワールド名をリスト表示する（フォルダ名ではなく、ゲーム内表示名で表示すること）。
+    - ワールド名の後にエディション名（[Bedrock] または [Education]）を表示する。
     - *(将来実装)* 最終更新日時などでソートできると望ましい。
 
 2.  **外部ツール連携 (Launcher):**

@@ -11,6 +11,8 @@ DevAllayは、Minecraft Bedrock Editionのワールドデータ管理と座標�
 ### 1. World Manager（ワールドマネージャー）
 
 - **ワールド一覧表示**: ローカルに保存されているワールドを自動スキャンして表示
+  - Minecraft Bedrock Edition
+  - Minecraft Education Edition
 - **外部ツール連携**:
   - 📁 **Open Explorer**: ワールドフォルダをエクスプローラーで開く
   - ⌨️ **Open Terminal**: Windows Terminalでワールドフォルダを開く
@@ -147,8 +149,10 @@ dotnet publish -c Release -r win-x64 --self-contained
 
 ### ワールドが表示されない
 
-- Minecraft Bedrock Editionがインストールされているか確認
-- パス: `%LOCALAPPDATA%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds`
+- Minecraft Bedrock EditionまたはEducation Editionがインストールされているか確認
+- パス:
+  - Bedrock: `%LOCALAPPDATA%\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds`
+  - Education: `%LOCALAPPDATA%\Packages\Microsoft.MinecraftEducationEdition_8wekyb3d8bbwe\LocalState\games\com.mojang\minecraftWorlds`
 
 ### Windows Terminalが起動しない
 
