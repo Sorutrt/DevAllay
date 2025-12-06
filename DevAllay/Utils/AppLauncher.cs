@@ -8,7 +8,7 @@ public static class AppLauncher
     {
         try
         {
-            Process.Start("explorer.exe", path);
+            Process.Start("explorer.exe", $"\"{path}\"");
         }
         catch (Exception ex)
         {
