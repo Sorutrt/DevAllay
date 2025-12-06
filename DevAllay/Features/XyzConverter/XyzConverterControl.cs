@@ -80,19 +80,9 @@ public class XyzConverterControl : UserControl
         if (success)
         {
             outputTextBox.Text = result;
-            statusLabel.Text = "✓ クリップボードにコピーしました";
-            statusLabel.ForeColor = Color.Green;
             
-            // Copy to clipboard
-            try
-            {
-                Clipboard.SetText(result);
-            }
-            catch
-            {
-                statusLabel.Text = "クリップボードへのコピーに失敗しました";
-                statusLabel.ForeColor = Color.Orange;
-            }
+            // Copy to clipboard with delayed execution to avoid conflicts
+            CopyToClipboardAsync(result);
         }
         else if (!string.IsNullOrEmpty(errorMessage))
         {
@@ -104,6 +94,57 @@ public class XyzConverterControl : UserControl
         {
             outputTextBox.Text = string.Empty;
             statusLabel.Text = string.Empty;
+        }
+    }
+
+    private async void CopyToClipboardAsync(string text)
+    {
+        // Wait a bit to avoid rapid clipboard access during typing
+        await Task.Delay(100);
+        
+        // Verify the text is still current
+        if (outputTextBox.Text != text)
+            return;
+
+        try
+        {
+            // Retry mechanism for clipboard access
+            int maxRetries = 5;
+            bool copied = false;
+            
+            for (int i = 0; i < maxRetries && !copied; i++)
+            {
+                try
+                {
+                    // Use SetDataObject with retry parameter
+                    Clipboard.SetDataObject(text, true, 10, 100);
+                    copied = true;
+                }
+                catch (System.Runtime.InteropServices.ExternalException)
+                {
+                    // Clipboard is busy, wait and retry
+                    if (i < maxRetries - 1)
+                    {
+                        await Task.Delay(100);
+                    }
+                }
+            }
+            
+            if (copied)
+            {
+                statusLabel.Text = "✓ クリップボードにコピーしました";
+                statusLabel.ForeColor = Color.Green;
+            }
+            else
+            {
+                statusLabel.Text = "⚠ クリップボードへのコピーに失敗しました（他のアプリが使用中）";
+                statusLabel.ForeColor = Color.Orange;
+            }
+        }
+        catch (Exception ex)
+        {
+            statusLabel.Text = $"⚠ クリップボードエラー: {ex.Message}";
+            statusLabel.ForeColor = Color.Orange;
         }
     }
 }
