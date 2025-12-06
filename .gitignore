@@ -102,3 +102,6 @@ $RECYCLE.BIN/
 
 # JetBrains Rider
 *.sln.iml
+
+# Release archives
+*.zip
