@@ -1,17 +1,104 @@
 # Build results
 [Bb]in/
 [Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Ll]og/
+[Ll]ogs/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
 # User-specific files
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
+*.userprefs
+
+# Mono auto generated files
+mono_crash.*
+
+# Build results of an ATL project
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+# Visual Studio cache/options directory
+.vs/
 
 # VS Code
 .vscode/
 .windsurf/
 
+# Rider
+.idea/
+*.sln.iml
+
+# Visual Studio profiler
+*.psess
+*.vsp
+*.vspx
+*.sap
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+
+# NuGet Symbol Packages
+*.snupkg
+
+# Windows image file caches
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin
+$RECYCLE.BIN/
+
 # OS generated files
 .DS_Store
-Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Publish profiles
+*.pubxml
+*.publishproj
+
+# Azure
+*.azurePubxml
+
+# JetBrains Rider
+*.sln.iml
